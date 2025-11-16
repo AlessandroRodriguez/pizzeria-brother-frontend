@@ -1,5 +1,3 @@
-// src/pages/Login.jsx
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -47,54 +45,65 @@ const Login = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#d8342c] to-[#f6d9a6] px-4">
 
-      {/* CONTENEDOR RESPONSIVO */}
-      <div className="bg-white/80 backdrop-blur-md p-8 rounded-3xl shadow-2xl w-full max-w-md flex flex-col items-center">
+      {/* CONTENEDOR PRINCIPAL */}
+      <div className="bg-white/70 backdrop-blur-md p-10 rounded-3xl shadow-2xl flex flex-col md:flex-row items-center gap-12">
 
         {/* LOGO */}
-        <img
-          src="https://i.postimg.cc/0J5mdk9/pizzaaaaaaaaaaaaaaaa.png"
-          alt="logo"
-          className="w-32 mb-6 drop-shadow-lg"
-        />
+        <div className="flex justify-center">
+          <img
+            src="https://i.postimg.cc/3N9TYZLV/pizza-logo.png"
+            alt="pizza logo"
+            className="w-64 md:w-72 rounded-3xl shadow-lg"
+          />
+        </div>
 
-        <h1 className="text-2xl font-extrabold text-[#d8342c] text-center mb-6 leading-tight">
-          BIENVENIDO A <br /> PIZZA BROTHERS 🍕
-        </h1>
+        {/* FORMULARIO */}
+        <div className="flex flex-col w-full max-w-sm">
 
-        {/* INPUTS */}
-        <input
-          type="text"
-          placeholder="👤 Usuario"
-          className="w-full mb-4 p-3 bg-white rounded-xl shadow-md border border-gray-300 outline-none"
-          value={usuario}
-          onChange={(e) => setUsuario(e.target.value)}
-        />
+          <h1 className="text-3xl md:text-4xl font-extrabold text-[#d8342c] text-center mb-8 leading-tight tracking-wide">
+            BIENVENIDO A <br />
+            PIZZA BROTHERS 🍕
+          </h1>
 
-        <input
-          type="password"
-          placeholder="🔒 Contraseña"
-          className="w-full mb-6 p-3 bg-white rounded-xl shadow-md border border-gray-300 outline-none"
-          value={clave}
-          onChange={(e) => setClave(e.target.value)}
-        />
+          {/* USUARIO */}
+          <input
+            type="text"
+            placeholder="👤 Usuario"
+            className="w-full mb-4 p-3 bg-white rounded-xl shadow-md border border-gray-300 outline-none"
+            value={usuario}
+            onChange={(e) => setUsuario(e.target.value)}
+          />
 
-        {/* BOTÓN LOGIN */}
-        <button
-          className="w-full py-3 bg-[#2c5e1a] hover:bg-[#1f4312] text-white font-bold rounded-xl shadow-lg transition-all"
-          onClick={handleLogin}
-        >
-          INICIAR SESIÓN
-        </button>
+          {/* CONTRASEÑA */}
+          <input
+            type="password"
+            placeholder="🔒 Contraseña"
+            className="w-full mb-6 p-3 bg-white rounded-xl shadow-md border border-gray-300 outline-none"
+            value={clave}
+            onChange={(e) => setClave(e.target.value)}
+          />
 
-        {/* REGISTRO */}
-        <button className="w-full mt-3 py-3 bg-[#d8342c] hover:bg-[#b02a23] text-white font-bold rounded-xl shadow-lg transition-all">
-          REGISTRARSE
-        </button>
+          {/* BOTÓN LOGIN */}
+          <button
+            className="w-full py-3 bg-[#2c5e1a] hover:bg-[#1f4312] text-white font-bold rounded-xl shadow-lg transition-all"
+            onClick={handleLogin}
+          >
+            INICIAR SESIÓN
+          </button>
 
-        {/* AYUDA */}
-        <button className="mt-5 bg-[#d8342c] hover:bg-[#b02a23] text-white px-5 py-2 rounded-full shadow-lg text-sm">
-          AYUDA ❓
-        </button>
+          {/* BOTÓN REGISTRO */}
+          <button
+            className="w-full mt-3 py-3 bg-[#d8342c] hover:bg-[#b02a23] text-white font-bold rounded-xl shadow-lg transition-all"
+          >
+            REGISTRARSE
+          </button>
+
+          {/* BOTÓN AYUDA */}
+          <button className="mt-6 mx-auto bg-[#d8342c] hover:bg-[#b02a23] text-white px-5 py-2 rounded-full shadow-lg flex items-center gap-2 text-sm">
+            AYUDA ❓
+          </button>
+
+        </div>
       </div>
     </div>
   );
