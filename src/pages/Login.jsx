@@ -9,7 +9,6 @@ const Login = () => {
   const [usuario, setUsuario] = useState("");
   const [clave, setClave] = useState("");
 
-  // Usuarios simulados
   const usuariosDB = [
     { usuario: "mesero1", clave: "1234", rol: "MESERO" },
     { usuario: "cajero1", clave: "1234", rol: "CAJERO" },
@@ -48,20 +47,21 @@ const Login = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#d8342c] to-[#f6d9a6] px-4">
 
+      {/* CONTENEDOR RESPONSIVO */}
       <div className="bg-white/80 backdrop-blur-md p-8 rounded-3xl shadow-2xl w-full max-w-md flex flex-col items-center">
 
         {/* LOGO */}
         <img
           src="https://i.postimg.cc/0J5mdk9/pizzaaaaaaaaaaaaaaaa.png"
-          alt="Pizza Brothers Logo"
-          className="w-40 mb-6 drop-shadow-lg"
+          alt="logo"
+          className="w-32 mb-6 drop-shadow-lg"
         />
 
         <h1 className="text-2xl font-extrabold text-[#d8342c] text-center mb-6 leading-tight">
           BIENVENIDO A <br /> PIZZA BROTHERS 🍕
         </h1>
 
-        {/* USUARIO */}
+        {/* INPUTS */}
         <input
           type="text"
           placeholder="👤 Usuario"
@@ -70,7 +70,6 @@ const Login = () => {
           onChange={(e) => setUsuario(e.target.value)}
         />
 
-        {/* CONTRASEÑA */}
         <input
           type="password"
           placeholder="🔒 Contraseña"
@@ -87,16 +86,15 @@ const Login = () => {
           INICIAR SESIÓN
         </button>
 
-        {/* BOTÓN REGISTRO */}
+        {/* REGISTRO */}
         <button className="w-full mt-3 py-3 bg-[#d8342c] hover:bg-[#b02a23] text-white font-bold rounded-xl shadow-lg transition-all">
           REGISTRARSE
         </button>
 
-        {/* BOTÓN AYUDA */}
-        <button className="mt-5 bg-[#d8342c] hover:bg-[#b02a23] text-white px-5 py-2 rounded-full shadow-lg flex items-center gap-2 text-sm">
+        {/* AYUDA */}
+        <button className="mt-5 bg-[#d8342c] hover:bg-[#b02a23] text-white px-5 py-2 rounded-full shadow-lg text-sm">
           AYUDA ❓
         </button>
-
       </div>
     </div>
   );
