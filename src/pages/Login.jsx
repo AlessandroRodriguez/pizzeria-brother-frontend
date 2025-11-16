@@ -1,121 +1,44 @@
-// src/pages/Login.jsx
-
-import { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Home = () => {
   const navigate = useNavigate();
 
-  const [usuario, setUsuario] = useState("");
-  const [clave, setClave] = useState("");
-
-  // 🔥 Usuarios reales de tu tabla MySQL
-  const usuariosDB = [
-    { usuario: "mesero1", clave: "1234", rol: "MESERO" },
-    { usuario: "cajero1", clave: "1234", rol: "CAJERO" },
-    { usuario: "cocina1", clave: "1234", rol: "COCINA" },
-    { usuario: "gerente1", clave: "1234", rol: "GERENTE" },
-  ];
-
-  const handleLogin = () => {
-    // Buscar usuario en la lista
-    const user = usuariosDB.find(
-      (u) => u.usuario === usuario && u.clave === clave
-    );
-
-    if (!user) {
-      alert("❌ Usuario o contraseña incorrectos");
-      return;
-    }
-
-    // 🔥 Redirección según el ROL
-    switch (user.rol) {
-      case "MESERO":
-        navigate("/mesero/mesas");
-        break;
-
-      case "CAJERO":
-        navigate("/caja/pago");
-        break;
-
-      case "COCINA":
-        navigate("/cocina");
-        break;
-
-      case "GERENTE":
-        navigate("/gerente");
-        break;
-
-      default:
-        alert("❌ Rol no reconocido");
-    }
-  };
-
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#d8342c] to-[#f6d9a6]">
+    <main className="bg-gradient-to-b from-[#d8342c] to-[#f9d7a0] min-h-screen flex items-center justify-center">
 
-      {/* CONTENEDOR PRINCIPAL */}
-      <div className="bg-white/70 backdrop-blur-md p-10 rounded-3xl shadow-2xl flex items-center gap-16">
+      <div className="bg-[#fff3d6] p-16 rounded-3xl shadow-2xl flex gap-20 items-center">
 
-        {/* LOGO */}
-        <div>
-          <img
-            src="https://i.imgur.com/5oQKQp0.png"
-            alt="pizza logo"
-            className="w-60 rounded-3xl shadow-lg"
+        <div className="p-5 bg-[#f9efd7] rounded-3xl shadow-lg">
+          <img 
+            src="https://i.imgur.com/UXQYu7C.png"
+            className="w-64 rounded-xl"
           />
         </div>
 
-        {/* FORMULARIO */}
-        <div className="flex flex-col w-80">
-
-          <h1 className="text-3xl font-extrabold text-[#d8342c] text-center mb-8 leading-tight tracking-wide">
-            BIENVENIDO A <br />
-            PIZZA BROTHERS 🍕
+        <div className="flex flex-col w-[350px]">
+          <h1 className="text-5xl font-extrabold text-[#f3d7a6] drop-shadow-[2px_3px_0px_#8b3c2f] leading-tight mb-10">
+            BIENVENIDO A <br/> PIZZA BROTHERS
           </h1>
 
-          {/* USUARIO */}
-          <input
-            type="text"
-            placeholder="👤 Usuario"
-            className="w-full mb-4 p-3 bg-white rounded-xl shadow-md border border-gray-300 outline-none"
-            value={usuario}
-            onChange={(e) => setUsuario(e.target.value)}
-          />
-
-          {/* CONTRASEÑA */}
-          <input
-            type="password"
-            placeholder="🔒 Contraseña"
-            className="w-full mb-6 p-3 bg-white rounded-xl shadow-md border border-gray-300 outline-none"
-            value={clave}
-            onChange={(e) => setClave(e.target.value)}
-          />
-
-          {/* BOTÓN LOGIN */}
           <button
-            className="w-full py-3 bg-[#2c5e1a] hover:bg-[#1f4312] text-white font-bold rounded-xl shadow-lg transition-all"
-            onClick={handleLogin}
+            onClick={() => navigate("/login")}
+            className="bg-[#487a47] text-white w-full py-3 rounded-full font-bold hover:bg-[#3b663b] transition shadow-md"
           >
             INICIAR SESIÓN
           </button>
 
-          {/* BOTÓN REGISTRO */}
-          <button
-            className="w-full mt-3 py-3 bg-[#d8342c] hover:bg-[#b02a23] text-white font-bold rounded-xl shadow-lg transition-all"
+          <button 
+            className="bg-[#e8c368] text-black w-full py-3 rounded-full mt-4 font-bold hover:bg-[#d8b257] transition shadow-md"
           >
             REGISTRARSE
           </button>
-
-          {/* BOTÓN AYUDA */}
-          <button className="mt-6 mx-auto bg-[#d8342c] hover:bg-[#b02a23] text-white px-5 py-2 rounded-full shadow-lg flex items-center gap-2 text-sm">
-            AYUDA ❓
-          </button>
-
         </div>
       </div>
-    </div>
+
+    </main>
   );
 };
 
-export default Login;
+export default Home;
+
