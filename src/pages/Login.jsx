@@ -28,15 +28,19 @@ const Login = () => {
       case "MESERO":
         navigate("/mesero/mesas");
         break;
+
       case "CAJERO":
-        navigate("/caja/pago");
+        navigate("/cajero");  // ← CORREGIDO
         break;
+
       case "COCINA":
         navigate("/cocina");
         break;
+
       case "GERENTE":
-        navigate("/gerente");
+        navigate("/admin"); // si usas gerente como admin
         break;
+
       default:
         alert("❌ Rol no reconocido");
     }
@@ -44,11 +48,8 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#d8342c] to-[#f6d9a6] px-4">
-
-      {/* CONTENEDOR PRINCIPAL */}
       <div className="bg-white/70 backdrop-blur-md p-10 rounded-3xl shadow-2xl flex flex-col md:flex-row items-center gap-12">
-
-        {/* LOGO */}
+        
         <div className="flex justify-center">
           <img
             src="https://i.postimg.cc/3N9TYZLV/pizza-logo.png"
@@ -57,7 +58,6 @@ const Login = () => {
           />
         </div>
 
-        {/* FORMULARIO */}
         <div className="flex flex-col w-full max-w-sm">
 
           <h1 className="text-3xl md:text-4xl font-extrabold text-[#d8342c] text-center mb-8 leading-tight tracking-wide">
@@ -65,7 +65,6 @@ const Login = () => {
             PIZZA BROTHERS 🍕
           </h1>
 
-          {/* USUARIO */}
           <input
             type="text"
             placeholder="👤 Usuario"
@@ -74,7 +73,6 @@ const Login = () => {
             onChange={(e) => setUsuario(e.target.value)}
           />
 
-          {/* CONTRASEÑA */}
           <input
             type="password"
             placeholder="🔒 Contraseña"
@@ -83,7 +81,6 @@ const Login = () => {
             onChange={(e) => setClave(e.target.value)}
           />
 
-          {/* BOTÓN LOGIN */}
           <button
             className="w-full py-3 bg-[#2c5e1a] hover:bg-[#1f4312] text-white font-bold rounded-xl shadow-lg transition-all"
             onClick={handleLogin}
@@ -91,14 +88,12 @@ const Login = () => {
             INICIAR SESIÓN
           </button>
 
-          {/* BOTÓN REGISTRO */}
           <button
             className="w-full mt-3 py-3 bg-[#d8342c] hover:bg-[#b02a23] text-white font-bold rounded-xl shadow-lg transition-all"
           >
             REGISTRARSE
           </button>
 
-          {/* BOTÓN AYUDA */}
           <button className="mt-6 mx-auto bg-[#d8342c] hover:bg-[#b02a23] text-white px-5 py-2 rounded-full shadow-lg flex items-center gap-2 text-sm">
             AYUDA ❓
           </button>

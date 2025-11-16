@@ -1,6 +1,8 @@
 const Cocina = () => {
   return (
-    <h1 className="text-4xl p-10">Panel de Cocina 🔥 - PEDIDOS</h1>
+    <div className="text-white text-center mt-20">
+      <h1>Pantalla de Cocina (por implementar)</h1>
+    </div>
   );
 };
 
