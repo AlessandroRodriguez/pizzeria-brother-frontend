@@ -30,7 +30,7 @@ const Login = () => {
         break;
 
       case "CAJERO":
-        navigate("/cajero");  // ← CORREGIDO
+        navigate("/cajero");
         break;
 
       case "COCINA":
@@ -38,7 +38,7 @@ const Login = () => {
         break;
 
       case "GERENTE":
-        navigate("/admin"); // si usas gerente como admin
+        navigate("/gerente");
         break;
 
       default:
@@ -48,16 +48,20 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#d8342c] to-[#f6d9a6] px-4">
+
+      {/* CONTENEDOR PRINCIPAL */}
       <div className="bg-white/70 backdrop-blur-md p-10 rounded-3xl shadow-2xl flex flex-col md:flex-row items-center gap-12">
-        
+
+        {/* LOGO */}
         <div className="flex justify-center">
           <img
-            src="https://i.postimg.cc/3N9TYZLV/pizza-logo.png"
+            src="/pizza-logo.png"
             alt="pizza logo"
             className="w-64 md:w-72 rounded-3xl shadow-lg"
           />
         </div>
 
+        {/* FORMULARIO */}
         <div className="flex flex-col w-full max-w-sm">
 
           <h1 className="text-3xl md:text-4xl font-extrabold text-[#d8342c] text-center mb-8 leading-tight tracking-wide">

@@ -12,11 +12,11 @@ import Productos from "./pages/mesero/Productos";
 // CAJERO
 import Cajero from "./pages/caja/Cajero";
 
-// COCINA (lo agregamos por orden, aunque luego llenamos la pantalla)
+// COCINA
 import Cocina from "./pages/cocina/Cocina";
 
-// ADMIN (luego agregamos sus vistas)
-import Admin from "./pages/admin/Admin";
+// GERENTE
+import Gerente from "./pages/gerente/Gerente";
 
 function App() {
   return (
@@ -36,10 +36,10 @@ function App() {
         {/* COCINA */}
         <Route path="/cocina" element={<Cocina />} />
 
-        {/* ADMIN */}
-        <Route path="/admin" element={<Admin />} />
+        {/* GERENTE */}
+        <Route path="/gerente" element={<Gerente />} />
 
-        {/* fallback */}
+        {/* Fallback */}
         <Route path="*" element={<Login />} />
 
       </Routes>
