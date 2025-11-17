@@ -26,7 +26,7 @@ const Mesas = () => {
         return;
       }
 
-      // Si no hay mesas en el backend → crear 12 mesas disponibles
+      // Si no hay mesas en backend → fallback 12 mesas
       const mesasGeneradas = Array.from({ length: 12 }, (_, i) => ({
         id: i + 1,
         numero: i + 1,
@@ -48,7 +48,7 @@ const Mesas = () => {
     }
   };
 
-  // 👉 AHORA solo se selecciona, NO cambia estado aún
+  // 👉 SOLO seleccionar, NO ocupar mesa todavía
   const seleccionarMesa = (m) => {
     if (m.estado !== "disponible") {
       alert("Esta mesa no está disponible");
@@ -58,27 +58,17 @@ const Mesas = () => {
     setMesaSeleccionada(m.id);
   };
 
-  // 👉 AHORA recién CONFIRMAR cambia el estado a OCUPADA en backend
-  const confirmarMesa = async () => {
+  // 👉 YA NO OCUPA LA MESA AQUÍ
+  // Solo navega a productos
+  const confirmarMesa = () => {
     if (!mesaSeleccionada) {
       alert("Seleccione una mesa disponible");
       return;
     }
 
-    try {
-      await axios.put(
-        `http://localhost:8085/api/mesas/${mesaSeleccionada}?estado=OCUPADA`
-      );
-
-      await cargarMesas();
-
-      navigate("/mesero/productos", {
-        state: { mesa: mesaSeleccionada },
-      });
-
-    } catch (e) {
-      console.log("Error actualizando mesa →", e);
-    }
+    navigate("/mesero/productos", {
+      state: { mesa: mesaSeleccionada }
+    });
   };
 
   const colors = {
@@ -109,7 +99,7 @@ const Mesas = () => {
         SELECCIONAR MESA
       </h1>
 
-      {/* CONTENEDOR */}
+      {/* CONTENEDOR PRINCIPAL */}
       <div className="bg-[#e8dfb6] p-12 rounded-3xl shadow-xl max-w-5xl mx-auto">
         <div className="grid grid-cols-4 gap-10 place-items-center">
           {mesas.map((m) => (
