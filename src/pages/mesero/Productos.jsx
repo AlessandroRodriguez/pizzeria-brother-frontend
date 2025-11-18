@@ -81,7 +81,7 @@ const Productos = () => {
     { id: 22, nombre: "JUGO DE PIÑA", img: jugoPina, precio: 7 },
   ];
 
-  // 🟡 RACIONES (la categoría que faltaba)
+  // 🟡 RACIONES
   const raciones = [
     { id: 23, nombre: "PAPAS FRITAS RACIÓN", img: papas, precio: 10 },
     { id: 24, nombre: "ALITAS RACIÓN", img: alitas, precio: 18 },
@@ -91,10 +91,10 @@ const Productos = () => {
     ENTRADAS: entradas,
     PIZZAS: pizzas,
     BEBIDAS: bebidas,
-    RACIONES: raciones, // 🔥 ya está de regreso
+    RACIONES: raciones,
   };
 
-  // 🟩 Agregar al carrito con cantidad correcta
+  // 🟩 Agregar al carrito con cantidad real
   const handleGuardar = () => {
     if (!productoSeleccionado) {
       alert("Selecciona un producto");
@@ -106,7 +106,7 @@ const Productos = () => {
       return;
     }
 
-    agregarProducto(productoSeleccionado, cantidad); // 🔥 CANTIDAD REAL
+    agregarProducto(productoSeleccionado, cantidad);
 
     alert(`✔ Agregado: ${productoSeleccionado.nombre} (x${cantidad})`);
     setProductoSeleccionado(null);
@@ -123,8 +123,9 @@ const Productos = () => {
         ⬅ REGRESAR
       </button>
 
+      {/* ✔ TITULO CORREGIDO */}
       <h1 className="text-center text-3xl font-bold text-white tracking-widest mb-10">
-        PRODUCTOS — MESA {String(mesaSeleccionada).padStart(2, "0")}
+        PRODUCTOS — MESA {String(mesaSeleccionada?.numero ?? mesaSeleccionada).padStart(2, "0")}
       </h1>
 
       {/* TABS */}
@@ -161,7 +162,9 @@ const Productos = () => {
                 <img src={prod.img} className="h-full w-full object-contain" />
               </div>
 
-              <p className="mt-3 font-bold text-[#444] tracking-wide">{prod.nombre}</p>
+              <p className="mt-3 font-bold text-[#444] tracking-wide">
+                {prod.nombre}
+              </p>
               <p className="text-gray-600 text-sm">S/ {prod.precio}</p>
             </div>
           ))}
@@ -211,4 +214,3 @@ const Productos = () => {
 };
 
 export default Productos;
-

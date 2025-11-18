@@ -1,50 +1,62 @@
 // src/context/CartContext.jsx
-
 import { createContext, useContext, useState } from "react";
 
-// Crear el contexto
 const CartContext = createContext();
-
-// Hook para usar el contexto
 export const useCart = () => useContext(CartContext);
 
 export const CartProvider = ({ children }) => {
-  // 🟡 Mesa seleccionada por el mesero
   const [mesaSeleccionada, setMesaSeleccionada] = useState(null);
-
-  // 🛒 Carrito del pedido
   const [carrito, setCarrito] = useState([]);
 
-  // ✔ Seleccionar mesa (se usa en /mesero/mesas)
+  // Selección de mesa
   const seleccionarMesa = (mesa) => {
     setMesaSeleccionada(mesa);
-    setCarrito([]); // siempre iniciar carrito vacío para esa mesa
+    setCarrito([]); 
   };
 
-  // ➕ Agregar producto
-  const agregarProducto = (producto) => {
+  // 🔥 Agregar con cantidad REAL
+  const agregarProducto = (producto, cantidad = 1) => {
     const existe = carrito.find((p) => p.id === producto.id);
 
     if (existe) {
       setCarrito(
         carrito.map((p) =>
-          p.id === producto.id ? { ...p, cantidad: p.cantidad + 1 } : p
+          p.id === producto.id
+            ? { ...p, cantidad: p.cantidad + cantidad }
+            : p
         )
       );
     } else {
-      setCarrito([...carrito, { ...producto, cantidad: 1 }]);
+      setCarrito([...carrito, { ...producto, cantidad }]);
     }
   };
 
-  // ❌ Eliminar producto
+  // ⬇ Disminuir cantidad (sin eliminar directo)
+  const disminuirCantidad = (id) => {
+    const item = carrito.find((p) => p.id === id);
+    if (!item) return;
+
+    if (item.cantidad > 1) {
+      setCarrito(
+        carrito.map((p) =>
+          p.id === id ? { ...p, cantidad: p.cantidad - 1 } : p
+        )
+      );
+    } else {
+      // Confirma si desea eliminar
+      if (confirm("¿Deseas eliminar este producto del carrito?")) {
+        eliminarProducto(id);
+      }
+    }
+  };
+
+  // ❌ Eliminar por completo
   const eliminarProducto = (id) => {
     setCarrito(carrito.filter((p) => p.id !== id));
   };
 
-  // 🧼 Vaciar carrito (se usa después de enviar el pedido)
   const vaciarCarrito = () => setCarrito([]);
 
-  // 💲 Calcular total automáticamente
   const total = carrito.reduce(
     (sum, item) => sum + item.precio * item.cantidad,
     0
@@ -53,13 +65,12 @@ export const CartProvider = ({ children }) => {
   return (
     <CartContext.Provider
       value={{
-        // mesa
         mesaSeleccionada,
         seleccionarMesa,
 
-        // carrito
         carrito,
         agregarProducto,
+        disminuirCantidad,
         eliminarProducto,
         vaciarCarrito,
         total,
@@ -69,3 +80,4 @@ export const CartProvider = ({ children }) => {
     </CartContext.Provider>
   );
 };
+

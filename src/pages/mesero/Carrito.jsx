@@ -7,6 +7,7 @@ const Carrito = () => {
   const {
     carrito,
     agregarProducto,
+    disminuirCantidad,
     eliminarProducto,
     vaciarCarrito,
     total,
@@ -50,7 +51,7 @@ const Carrito = () => {
       // 3️⃣ Vaciar carrito
       vaciarCarrito();
 
-      // 4️⃣ Regresar
+      // 4️⃣ Volver a mesas
       alert("Pedido enviado correctamente 🚀");
       navigate("/mesero/mesas");
 
@@ -73,19 +74,20 @@ const Carrito = () => {
 
       {/* TÍTULO */}
       <h1 className="text-center text-3xl font-bold text-white tracking-widest mb-10">
-        🧾 CARRITO — MESA {String(mesaSeleccionada).padStart(2, "0")}
+        🧾 CARRITO — MESA {String(mesaSeleccionada?.numero ?? mesaSeleccionada).padStart(2, "0")}
       </h1>
 
-      {/* CONTENEDOR PRINCIPAL */}
+      {/* CONTENEDOR */}
       <div className="bg-[#fff3d6] p-10 mx-auto max-w-4xl rounded-3xl shadow-2xl">
 
-        {/* LISTA DE PRODUCTOS */}
+        {/* LISTA */}
         {carrito.length === 0 ? (
           <p className="text-center text-lg font-bold text-gray-600">
             El carrito está vacío.
           </p>
         ) : (
           <div className="flex flex-col gap-4">
+
             {carrito.map((item) => (
               <div
                 key={item.id}
@@ -97,22 +99,38 @@ const Carrito = () => {
                 </span>
 
                 {/* Cantidad */}
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-6">
+
+                  {/* 🔻 RESTAR */}
                   <button
                     className="bg-red-400 hover:bg-red-500 text-white px-3 py-1 rounded-lg"
-                    onClick={() => eliminarProducto(item.id)}
+                    onClick={() => disminuirCantidad(item.id)}
                   >
                     −
                   </button>
 
                   <span className="font-bold w-6 text-center">{item.cantidad}</span>
 
+                  {/* 🔺 SUMAR */}
                   <button
                     className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded-lg"
-                    onClick={() => agregarProducto(item)}
+                    onClick={() => agregarProducto(item, 1)}
                   >
                     +
                   </button>
+
+                  {/* ❌ ELIMINAR (ROJO, SEPARADO) */}
+                  <button
+                    className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded-lg ml-3"
+                    onClick={() => {
+                      if (confirm("¿Eliminar este producto del carrito?")) {
+                        eliminarProducto(item.id);
+                      }
+                    }}
+                  >
+                    X
+                  </button>
+
                 </div>
 
                 {/* Subtotal */}
@@ -121,6 +139,7 @@ const Carrito = () => {
                 </span>
               </div>
             ))}
+
           </div>
         )}
 
