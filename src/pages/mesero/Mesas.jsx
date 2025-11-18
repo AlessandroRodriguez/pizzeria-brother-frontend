@@ -1,11 +1,16 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useCart } from "../../context/CartContext";
 
 const Mesas = () => {
   const navigate = useNavigate();
+
+  // 🟢 Tomamos la función para guardar la mesa globalmente
+  const { seleccionarMesa } = useCart();
+
   const [mesas, setMesas] = useState([]);
-  const [mesaSeleccionada, setMesaSeleccionada] = useState(null);
+  const [mesaLocalSeleccionada, setMesaLocalSeleccionada] = useState(null);
 
   useEffect(() => {
     cargarMesas();
@@ -26,7 +31,7 @@ const Mesas = () => {
         return;
       }
 
-      // Si no hay mesas en backend → fallback 12 mesas
+      // Si el backend no retorna mesas → fallback
       const mesasGeneradas = Array.from({ length: 12 }, (_, i) => ({
         id: i + 1,
         numero: i + 1,
@@ -38,37 +43,40 @@ const Mesas = () => {
     } catch (e) {
       console.log("Error cargando mesas →", e);
 
-      const mesasGeneradas = Array.from({ length: 12 }, (_, i) => ({
+      const mesasFallback = Array.from({ length: 12 }, (_, i) => ({
         id: i + 1,
         numero: i + 1,
         estado: "disponible",
       }));
 
-      setMesas(mesasGeneradas);
+      setMesas(mesasFallback);
     }
   };
 
-  // 👉 SOLO seleccionar, NO ocupar mesa todavía
-  const seleccionarMesa = (m) => {
+  // 👉 Solo seleccionar mesa SIN cambiar estado
+  const seleccionarMesaLocal = (m) => {
     if (m.estado !== "disponible") {
       alert("Esta mesa no está disponible");
       return;
     }
 
-    setMesaSeleccionada(m.id);
+    setMesaLocalSeleccionada(m.id);
   };
 
-  // 👉 YA NO OCUPA LA MESA AQUÍ
-  // Solo navega a productos
+  // 👉 Confirmar selección → guardar en contexto + navegar
   const confirmarMesa = () => {
-    if (!mesaSeleccionada) {
+    if (!mesaLocalSeleccionada) {
       alert("Seleccione una mesa disponible");
       return;
     }
 
-    navigate("/mesero/productos", {
-      state: { mesa: mesaSeleccionada }
-    });
+    const mesaData = mesas.find((m) => m.id === mesaLocalSeleccionada);
+
+    // Guardar mesa globalmente
+    seleccionarMesa(mesaData);
+
+    // Ir a productos
+    navigate("/mesero/productos");
   };
 
   const colors = {
@@ -110,9 +118,9 @@ const Mesas = () => {
                 border border-gray-400 shadow-md cursor-pointer transition-all
                 hover:scale-105 text-xl font-semibold
                 ${colors[m.estado]}
-                ${mesaSeleccionada === m.id ? "ring-4 ring-yellow-300 scale-110" : ""}
+                ${mesaLocalSeleccionada === m.id ? "ring-4 ring-yellow-300 scale-110" : ""}
               `}
-              onClick={() => seleccionarMesa(m)}
+              onClick={() => seleccionarMesaLocal(m)}
             >
               <span>{String(m.numero).padStart(2, "0")}</span>
               {labels[m.estado] && (
@@ -139,10 +147,9 @@ const Mesas = () => {
           onClick={confirmarMesa}
           className={`
             px-10 py-3 rounded-xl text-white font-bold shadow-xl
-            ${
-              mesaSeleccionada
-                ? "bg-green-700 hover:bg-green-800"
-                : "bg-gray-500 opacity-50 cursor-not-allowed"
+            ${mesaLocalSeleccionada
+              ? "bg-green-700 hover:bg-green-800"
+              : "bg-gray-500 opacity-50 cursor-not-allowed"
             }
           `}
         >
@@ -156,3 +163,4 @@ const Mesas = () => {
 };
 
 export default Mesas;
+

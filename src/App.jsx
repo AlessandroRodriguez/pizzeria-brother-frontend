@@ -8,6 +8,7 @@ import Login from "./pages/Login";
 // MESERO
 import Mesas from "./pages/mesero/Mesas";
 import Productos from "./pages/mesero/Productos";
+import Carrito from "./pages/mesero/Carrito";   // 🔥 NUEVO
 
 // CAJERO
 import Cajero from "./pages/caja/Cajero";
@@ -29,6 +30,7 @@ function App() {
         {/* MESERO */}
         <Route path="/mesero/mesas" element={<Mesas />} />
         <Route path="/mesero/productos" element={<Productos />} />
+        <Route path="/mesero/carrito" element={<Carrito />} />  {/* 🔥 NUEVO */}
 
         {/* CAJERO */}
         <Route path="/cajero" element={<Cajero />} />
@@ -39,7 +41,7 @@ function App() {
         {/* GERENTE */}
         <Route path="/gerente" element={<Gerente />} />
 
-        {/* Fallback */}
+        {/* Fallback (si escriben cualquier ruta rara) */}
         <Route path="*" element={<Login />} />
 
       </Routes>
